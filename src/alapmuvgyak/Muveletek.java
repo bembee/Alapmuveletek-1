@@ -317,7 +317,7 @@ public class Muveletek extends javax.swing.JFrame {
             if (f.isDirectory()) {
                 lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
                 try {
-                    Files.write(Paths.get(f.getPath(), "stat.txt"), "Statisztika:".getBytes());
+                    Files.write(Paths.get(f.getPath(), "stat.txt"), tartalomOsszeallitasa().getBytes());
                 } catch (IOException ex) {
                     Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -362,9 +362,11 @@ public class Muveletek extends javax.swing.JFrame {
             /**/
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "." + kit[0] + "</html>");
             try {
+                /*Tényleges kiírás*/
                 if (mentes) {
-                    Files.write(Paths.get(fn), "Statisztika:".getBytes());
+                    Files.write(Paths.get(fn), tartalomOsszeallitasa().getBytes());
                 }
+                /*Tényleges kiírás VÉGE*/
             } catch (IOException ex) {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -390,6 +392,9 @@ public class Muveletek extends javax.swing.JFrame {
         if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+
+            /*Tényleges megnyitás*/
+            /*Tényleges megnyitás VÉGE*/
         } else {
             JOptionPane.showMessageDialog(this, "A megnyitás megszakítva", "Megnyitás SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -467,4 +472,9 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
+
+    private String tartalomOsszeallitasa() {
+        String statisztika = "Alapműveletek gyakoroltatása statisztika:\n";
+        return statisztika;
+    }
 }
