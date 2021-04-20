@@ -19,6 +19,7 @@ public class Muveletek extends javax.swing.JFrame {
     public Muveletek() {
         initComponents();
     }
+    String mentettFajl = null;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,26 +307,41 @@ public class Muveletek extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Fájl mentése");
-        fc.setCurrentDirectory(new File(""));
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        JFileChooser fc = new JFileChooser();
+//        fc.setDialogTitle("Fájl mentése");
+//        fc.setCurrentDirectory(new File(""));
+//        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//
+//        int valasztottGombErteke = fc.showSaveDialog(this);
+//        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
+//            File f = fc.getSelectedFile();
+//            if (f.isDirectory()) {
+//                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+//                try {
+//                    Files.write(Paths.get(f.getPath(), "stat.txt"), tartalomOsszeallitasa().getBytes());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
 
-        int valasztottGombErteke = fc.showSaveDialog(this);
-        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
-            File f = fc.getSelectedFile();
-            if (f.isDirectory()) {
-                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
-                try {
-                    Files.write(Paths.get(f.getPath(), "stat.txt"), tartalomOsszeallitasa().getBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        if (mentettFajl == null) {
+            mnuFajlMentMasActionPerformed(evt);
+        } else {
+            try {
+                Files.write(Paths.get(mentettFajl), tartalomOsszeallitasa().getBytes());
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_mnuFajlMentActionPerformed
     /* tesztesetek
-    
+    - kiterjesztés megváltoztatása
+    - olyan kiterjesztés írása, ami nincs a listában
+    - üresen marad a fájl neve
+    - másik mappa kiválasztása
+    - kiterjesztéssel választom a meglévő fájlt, akkor megint mögé rakja a kiterjesztést
+    - létezik a fájl, akkor kérdés nélkül felülírja
      */
     private void mnuFajlMentMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentMasActionPerformed
         JFileChooser fc = new JFileChooser(new File("."));
@@ -394,7 +410,7 @@ public class Muveletek extends javax.swing.JFrame {
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
 
             /*Tényleges megnyitás*/
-            /*Tényleges megnyitás VÉGE*/
+ /*Tényleges megnyitás VÉGE*/
         } else {
             JOptionPane.showMessageDialog(this, "A megnyitás megszakítva", "Megnyitás SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
         }
