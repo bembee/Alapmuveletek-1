@@ -211,6 +211,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.setText("Fájl");
 
         mnuFajlMegnyit.setText("Megnyit...");
+        mnuFajlMegnyit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMegnyitActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMegnyit);
 
         mnuFajlMent.setText("Ment");
@@ -367,6 +372,28 @@ public class Muveletek extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "A fájl nincs mentve", "MENTÉS SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_mnuFajlMentMasActionPerformed
+
+    private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
+        JFileChooser fc = new JFileChooser(new File("."));
+        fc.setDialogTitle("Megnyitás");
+
+        fc.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("PNG és GIF fájlok", "png", "gif");
+        fc.addChoosableFileFilter(imgFilter);
+        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("Csak szöveg (*.txt)", "txt");
+        fc.addChoosableFileFilter(txtFilter);
+        FileNameExtensionFilter sgFilter = new FileNameExtensionFilter("saját (*.sg)", "*sg");
+        fc.addChoosableFileFilter(sgFilter);
+
+        fc.setFileFilter(txtFilter);
+        int valasztottGombErteke = fc.showOpenDialog(this);
+        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+        } else {
+            JOptionPane.showMessageDialog(this, "A megnyitás megszakítva", "Megnyitás SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
     /**
      * @param args the command line arguments
